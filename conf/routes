@@ -1,0 +1,24 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Default path will just redirect to the person list
+GET     /                           controllers.HomeController.index()
+
+# persons list (look at the default values for pagination parameters)
+GET     /persons                    controllers.HomeController.list(p:Int ?= 0, s ?= "name", o ?= "asc", f ?= "")
+
+# Add person
+GET     /persons/new                controllers.HomeController.create()
+POST    /persons                    controllers.HomeController.save()
+
+# Edit existing person
+GET     /persons/:id                controllers.HomeController.edit(id:Long)
+POST    /persons/:id                controllers.HomeController.update(id:Long)
+
+# Delete a person
+POST    /persons/:id/delete         controllers.HomeController.delete(id:Long)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+

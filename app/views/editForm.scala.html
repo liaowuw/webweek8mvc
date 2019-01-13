@@ -1,0 +1,38 @@
+@(id: Long, PersonForm: Form[Person], sex: Map[String, String])
+
+@import helper._
+
+@main {
+	
+	<h1>Edit Person</h1>
+	
+	@form(routes.HomeController.update(id)) {
+		
+		<fieldset>
+			@CSRF.formField
+			@inputText(PersonForm("name"), '_label -> "Person name", '_help -> "")
+			@inputText(PersonForm("age"), '_label -> "Person age", '_help -> "")
+			@inputText(PersonForm("email"), '_label -> "Person email", '_help -> "")
+			
+			@select(
+				PersonForm("Sex.id"), 
+				options(sex),
+				'_label -> "Sex", '_default -> "-- Choose a Sex --",
+				'_showConstraints -> false
+			)
+		
+		</fieldset>
+		
+		<div class="actions">
+			<input type="submit" value="Save this Person" class="btn primary"> or 
+			<a href="@routes.HomeController.list()" class="btn">Cancel</a>
+		</div>
+		
+	}
+	
+	@form(routes.HomeController.delete(id), 'class -> "topRight") {
+		@CSRF.formField
+		<input type="submit" value="Delete this Person" class="btn danger">
+	}
+	
+}
